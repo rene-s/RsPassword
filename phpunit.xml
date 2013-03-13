@@ -1,0 +1,6 @@
+<phpunit bootstrap="./test/lib/bootstrap.php" strict="true">
+  <filter>
+    <blacklist>
+    </blacklist>
+  </filter>
+</phpunit>
