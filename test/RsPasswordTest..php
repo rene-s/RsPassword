@@ -6,6 +6,7 @@
  * @package    RsPassword
  * @subpackage TestUnit
  * @author     Rene Schmidt <rene@reneschmidt.de>
+ * @license LGPLv3
  */
 class RsPasswordTest extends PHPUnit_Framework_TestCase
 {

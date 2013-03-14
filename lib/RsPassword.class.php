@@ -5,8 +5,10 @@
  * 3. Concatenates salt and hash for easy storage and handling. (store hash in CHAR(128))
  * 4. That's it.
  *
+ *
  * @package RsPassword
  * @author  Rene Schmidt <rene@reneschmidt.de>
+ * @license LGPLv3
  */
 class RsPassword
 {
