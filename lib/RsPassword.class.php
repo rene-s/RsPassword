@@ -2,7 +2,7 @@
 /**
  * 1. RsPassword class.
  * 2. Hashes password with salt and rounds, validates passwords.
- * 3. Concatenates salt and hash for easy storage and handling. (store hash in CHAR(128))
+ * 3. Concatenates salt and hash for easy storage and handling. (store salt-hash in CHAR(128))
  * 4. That's it.
  *
  *
@@ -43,7 +43,7 @@ class RsPassword
    * @param string $password Password string
    * @param int    $rounds   Amount of hashing rounds
    *
-   * @return string hash of the password
+   * @return string salt-hash of the password
    */
   public function hashPassword($password, $rounds = 10250)
   {
@@ -58,7 +58,7 @@ class RsPassword
    * @param string $salt     Salt string
    * @param int    $rounds   Amount of hashing rounds
    *
-   * @return string
+   * @return string salt-hash of the password
    */
   private function hashWithRounds($password, $salt, $rounds)
   {
@@ -76,7 +76,7 @@ class RsPassword
    *
    * @param int $length Desired salt length
    *
-   * @return string
+   * @return string Salt
    */
   public function createSalt($length = 32)
   {
@@ -88,7 +88,7 @@ class RsPassword
    *
    * @param int $length Desired password length
    *
-   * @return string
+   * @return string Salt
    */
   public function createRandomPassword($length = 8)
   {
