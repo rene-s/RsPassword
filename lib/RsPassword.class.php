@@ -65,7 +65,7 @@ class RsPassword
   public function hashPassword($password, $rounds = 10250)
   {
     if ($this->usesBcrypt()) {
-      return password_hash($password, PASSWORD_BCRYPT, array('cost' => $rounds, 'salt' => $this->createSalt(22)));
+      return password_hash($password, PASSWORD_BCRYPT, $rounds);
     }
 
     $salt = $this->createSalt();
