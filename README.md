@@ -31,7 +31,7 @@ LGPL v3 or commercial licence :) from github@reneschmidt.de.
 
 # Requirements
 
-1. PHP 5.3, PHP 5.4, PHP 5.5 (maybe also older/newer versions)
+1. PHP 5.3, PHP 5.4, PHP 5.5 (maybe also newer versions)
 1. php5-mcrypt
 
 Please note that PHP 5.5+ provides password_hash() which basically does what RsPassword does. So you do not actually *need* RsPassword for secure passwords when using PHP 5.5+. I consider RsPassword easier do use though.
@@ -44,7 +44,7 @@ Please note that PHP 5.5+ provides password_hash() which basically does what RsP
     // Create salted SHA256 hash of $password with 10250 rounds
     $rsPassword = new RsPassword("sha256");
 
-    $saltedHash = $rsPassword->hashPassword("password", 10250);
+    $saltedHash = $rsPassword->hashPassword("password", 10250); // choose 4-15 rounds when hashing using bcrypt
 
     // To do for you: save salted hash, number of rounds, and used hash algorithm ($saltedHash, 10250, "sha256")
     // to database for later verification, for example when the user logs in.
