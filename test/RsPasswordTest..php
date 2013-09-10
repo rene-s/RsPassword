@@ -6,7 +6,7 @@
  * @package    RsPassword
  * @subpackage TestUnit
  * @author     Rene Schmidt <rene@reneschmidt.de>
- * @license LGPLv3
+ * @license    LGPLv3
  */
 class RsPasswordTest extends PHPUnit_Framework_TestCase
 {
@@ -127,5 +127,51 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
     $this->assertNotEquals($hashSha256, $hashRipeMd160); // different salts, different algorithm
     $this->assertNotEquals($hashSha512, $hashRipeMd160); // different salts, different algorithm
     $this->assertNotEquals($hashSha256, $hash); // same algorithm but different salts
+  }
+
+  /**
+   * Test bcrypt support
+   *
+   * @return void
+   */
+  public function testBcrypt()
+  {
+    if (version_compare(PHP_VERSION, '5.5') < 0) {
+      // current PHP version is too old. only check if RsPassword throws an exception when trying to use bcrypt with PHP < 5.5
+      try {
+        new RsPassword("bcrypt");
+        $this->fail("Exception expected. bcrypt is available only with PHP 5.5 and newer.");
+      } catch (Exception $e) {
+        $this->assertInstanceOf("Exception", $e);
+      }
+    } else {
+      // current PHP version supports bcrypt.
+      $password = "123werQWER§%&";
+
+      $rsp = new RsPassword("bcrypt");
+      $hashBcrypt = $rsp->hashPassword($password);
+
+      $rsp = new RsPassword();
+      $hashSha256 = $rsp->hashPassword($password);
+
+      $rsp = new RsPassword("sha512");
+      $hashSha512 = $rsp->hashPassword($password);
+
+      $rsp = new RsPassword("ripemd160");
+      $hashRipeMd160 = $rsp->hashPassword($password);
+
+      $this->assertNotEquals($hashBcrypt, $hashSha512); // different salts, different algorithm
+      $this->assertNotEquals($hashBcrypt, $hashRipeMd160); // different salts, different algorithm
+      $this->assertNotEquals($hashBcrypt, $hashSha256); // same algorithm but different salts
+
+      $rsp = new RsPassword("bcrypt");
+      $hashBcrypt = $rsp->hashPassword($password);
+
+      $verifiedHash = $rsp->validatePassword($password,10251);
+      $this->assertNotEquals($hashBcrypt, $verifiedHash); // same algorithm but rounds
+
+      $verifiedHash = $rsp->validatePassword($password,10250);
+      $this->assertEquals($hashBcrypt, $verifiedHash); // same algorithm, same rounds, same salt, same hash = ok
+    }
   }
 }

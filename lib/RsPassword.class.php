@@ -23,6 +23,7 @@ class RsPassword
    * @param string|null $algorithm Algorithm to use for hashing
    *
    * @return void
+   * @throws Exception
    */
   public function RsPassword($algorithm = null)
   {
@@ -32,9 +33,25 @@ class RsPassword
       case "ripemd160":
         $this->algorithm = $algorithm;
         break;
+      case "bcrypt":
+        if (!function_exists("password_hash")) {
+          throw new Exception("password_hash() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
+        }
+        $this->algorithm = $algorithm;
+        break;
       default:
         break;
     }
+  }
+
+  /**
+   * Check if we are supposed to use bcrypt
+   *
+   * @return bool
+   */
+  public function usesBcrypt()
+  {
+    return $this->algorithm === "bcrypt";
   }
 
   /**
@@ -47,6 +64,10 @@ class RsPassword
    */
   public function hashPassword($password, $rounds = 10250)
   {
+    if ($this->usesBcrypt()) {
+      return password_hash($password, PASSWORD_BCRYPT, array('cost' => $rounds, 'salt' => $this->createSalt(22)));
+    }
+
     $salt = $this->createSalt();
     $hash = $this->hashWithRounds($password, $salt, $rounds);
 
@@ -106,6 +127,10 @@ class RsPassword
    */
   public function validatePassword($passwordToValidate, $storedSaltHash, $rounds = 10250)
   {
+    if ($this->usesBcrypt()) {
+      return $this->hashPassword($passwordToValidate, $rounds) === $storedSaltHash;
+    }
+
     $salt = substr($storedSaltHash, 0, 64); //get the salt from the front of the "salt-hash"
     $storedHash = substr($storedSaltHash, 64, 64); //the actual hash
 
