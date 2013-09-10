@@ -61,15 +61,23 @@ class RsPassword
    * @param int    $rounds   Amount of hashing rounds
    *
    * @return string salt-hash of the password
+   * @throws Exception
    */
-  public function hashPassword($password, $rounds = 10250)
+  public function hashPassword($password, $rounds = null)
   {
     if ($this->usesBcrypt()) {
-      return password_hash($password, PASSWORD_BCRYPT, $rounds);
+      if (is_null($rounds)) {
+        $rounds = 10;
+      } else if ($rounds < 4 || $rounds > 15) {
+        throw new Exception("RsPassword supports bcrypt rounds only '4 <= \$rounds <= 15'. Please choose at least 4 or 15 at max.");
+      }
+
+      // do not create custom salt as the PHP documentation recommends against it because password_hash() already takes care for that.
+      return password_hash($password, PASSWORD_BCRYPT, array('cost' => $rounds /*, 'salt' => $this->createSalt(22)*/));
     }
 
     $salt = $this->createSalt();
-    $hash = $this->hashWithRounds($password, $salt, $rounds);
+    $hash = $this->hashWithRounds($password, $salt, is_null($rounds) ? 10250 : $rounds);
 
     return $salt . $hash;
   }
@@ -119,23 +127,27 @@ class RsPassword
   /**
    * Validates a password
    *
-   * @param string $passwordToValidate Password string to be validated
-   * @param string $storedSaltHash     Stored hash string
-   * @param int    $rounds             Amount of rounds
+   * @param string   $passwordToValidate Password string to be validated
+   * @param string   $storedSaltHash     Stored hash string
+   * @param int|null $rounds             Amount of rounds
    *
    * @return bool true if the password is valid, false otherwise.
+   * @throws Exception
    */
-  public function validatePassword($passwordToValidate, $storedSaltHash, $rounds = 10250)
+  public function validatePassword($passwordToValidate, $storedSaltHash, $rounds = null)
   {
     if ($this->usesBcrypt()) {
-      return $this->hashPassword($passwordToValidate, $rounds) === $storedSaltHash;
+      if (!function_exists("password_verify")) {
+        throw new Exception("password_verify() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
+      }
+      return password_verify($passwordToValidate, $storedSaltHash);
     }
 
     $salt = substr($storedSaltHash, 0, 64); //get the salt from the front of the "salt-hash"
     $storedHash = substr($storedSaltHash, 64, 64); //the actual hash
 
     //hash the password being tested
-    $calculatedHash = $this->hashWithRounds($passwordToValidate, $salt, $rounds);
+    $calculatedHash = $this->hashWithRounds($passwordToValidate, $salt, is_null($rounds) ? 10250 : $rounds);
 
     //if the hashes are exactly the same, the password is valid
     return $calculatedHash === $storedHash;

@@ -133,6 +133,7 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
    * Test bcrypt support
    *
    * @return void
+   * @large
    */
   public function testBcrypt()
   {
@@ -167,11 +168,12 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
       $rsp = new RsPassword("bcrypt");
       $hashBcrypt = $rsp->hashPassword($password);
 
-      $verifiedHash = $rsp->validatePassword($password,10251);
-      $this->assertNotEquals($hashBcrypt, $verifiedHash); // same algorithm but rounds
+      // same algorithm but different amount of rounds:
+      // is NOT false because "rounds" parameter does not get checked for bcrypt hash verification
+      $this->assertTrue($rsp->validatePassword($password, $hashBcrypt, 11)); 
 
-      $verifiedHash = $rsp->validatePassword($password,10250);
-      $this->assertEquals($hashBcrypt, $verifiedHash); // same algorithm, same rounds, same salt, same hash = ok
+      // same algorithm, same rounds, same salt, same hash = ok:
+      $this->assertTrue($rsp->validatePassword($password, $hashBcrypt, 10));
     }
   }
 }
