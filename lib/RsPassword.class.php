@@ -23,7 +23,7 @@ class RsPassword
    * @param string|null $algorithm Algorithm to use for hashing
    *
    * @return void
-   * @throws Exception
+   * @throws \Exception
    */
   public function RsPassword($algorithm = null)
   {
@@ -35,7 +35,7 @@ class RsPassword
         break;
       case "bcrypt":
         if (!function_exists("password_hash")) {
-          throw new Exception("password_hash() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
+          throw new \Exception("password_hash() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
         }
         $this->algorithm = $algorithm;
         break;
@@ -61,7 +61,7 @@ class RsPassword
    * @param int    $rounds   Amount of hashing rounds
    *
    * @return string salt-hash of the password
-   * @throws Exception
+   * @throws \Exception
    */
   public function hashPassword($password, $rounds = null)
   {
@@ -69,7 +69,7 @@ class RsPassword
       if (is_null($rounds)) {
         $rounds = 10;
       } else if ($rounds < 4 || $rounds > 15) {
-        throw new Exception("RsPassword supports bcrypt rounds only '4 <= \$rounds <= 15'. Please choose at least 4 or 15 at max.");
+        throw new \Exception("RsPassword supports bcrypt rounds only '4 <= \$rounds <= 15'. Please choose at least 4 or 15 at max.");
       }
 
       // do not create custom salt as the PHP documentation recommends against it because password_hash() already takes care for that.
@@ -132,13 +132,13 @@ class RsPassword
    * @param int|null $rounds             Amount of rounds
    *
    * @return bool true if the password is valid, false otherwise.
-   * @throws Exception
+   * @throws \Exception
    */
   public function validatePassword($passwordToValidate, $storedSaltHash, $rounds = null)
   {
     if ($this->usesBcrypt()) {
       if (!function_exists("password_verify")) {
-        throw new Exception("password_verify() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
+        throw new \Exception("password_verify() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
       }
       return password_verify($passwordToValidate, $storedSaltHash);
     }
