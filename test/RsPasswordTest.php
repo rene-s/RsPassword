@@ -143,7 +143,7 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
         new RsPassword("bcrypt");
         $this->fail("Exception expected. bcrypt is available only with PHP 5.5 and newer.");
       } catch (Exception $e) {
-        $this->assertInstanceOf("Exception", $e);
+        $this->markTestSkipped("bcrypt is available only with PHP 5.5 and newer.");
       }
     } else {
       // current PHP version supports bcrypt.
@@ -170,7 +170,7 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
 
       // same algorithm but different amount of rounds:
       // is NOT false because "rounds" parameter does not get checked for bcrypt hash verification
-      $this->assertTrue($rsp->validatePassword($password, $hashBcrypt, 11)); 
+      $this->assertTrue($rsp->validatePassword($password, $hashBcrypt, 11));
 
       // same algorithm, same rounds, same salt, same hash = ok:
       $this->assertTrue($rsp->validatePassword($password, $hashBcrypt, 10));
