@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 1. RsPassword class.
  * 2. Hashes password with salt and rounds, validates passwords.
@@ -18,15 +19,23 @@ class RsPassword
   protected $algorithm = "sha256";
 
   /**
+   * @var bool
+   */
+  protected $supportsBcrypt = true;
+
+  /**
    * Constructor
    *
-   * @param string|null $algorithm Algorithm to use for hashing
+   * @param string|null $algorithm      Algorithm to use for hashing
+   * @param bool|null   $supportsBcrypt Supports bcrypt()
    *
    * @return void
    * @throws \Exception
    */
-  public function RsPassword($algorithm = null)
+  public function RsPassword($algorithm = null, $supportsBcrypt = null)
   {
+    $this->supportsBcrypt = is_bool($supportsBcrypt) ? (bool)$supportsBcrypt : function_exists("password_hash");
+
     switch ($algorithm) {
       case "sha256":
       case "sha512":
@@ -34,9 +43,6 @@ class RsPassword
         $this->algorithm = $algorithm;
         break;
       case "bcrypt":
-        if (!function_exists("password_hash")) {
-          throw new \Exception("password_hash() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
-        }
         $this->algorithm = $algorithm;
         break;
       default:
@@ -137,9 +143,6 @@ class RsPassword
   public function validatePassword($passwordToValidate, $storedSaltHash, $rounds = null)
   {
     if ($this->usesBcrypt()) {
-      if (!function_exists("password_verify")) {
-        throw new \Exception("password_verify() of PHP 5.5 is not available, but is required when using bcrypt. Use sha256, sha512, ripemd160 as an alternative.");
-      }
       return password_verify($passwordToValidate, $storedSaltHash);
     }
 

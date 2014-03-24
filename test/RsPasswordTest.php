@@ -130,6 +130,47 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test hashing using bcrypt() and invalid number of rounds
+   *
+   * @return void
+   */
+  public function testBcryptInvalidRounds()
+  {
+    if (version_compare(PHP_VERSION, '5.5') < 0) {
+      // current PHP version is too old. only check if RsPassword throws an exception when trying to use bcrypt with PHP < 5.5
+      try {
+        new RsPassword("bcrypt");
+        $this->fail("Exception expected. bcrypt is available only with PHP 5.5 and newer.");
+      } catch (Exception $e) {
+        $this->markTestSkipped("bcrypt is available only with PHP 5.5 and newer.");
+      }
+    } else {
+      // current PHP version supports bcrypt.
+      try {
+        $rsp = new RsPassword("bcrypt");
+        $rsp->hashPassword("password", 100);
+      } catch (\Exception $e) {
+        $this->assertInstanceOf("\Exception", $e);
+      }
+    }
+  }
+
+  /**
+   * Test bcrypt() unsupported
+   *
+   * @return void
+   */
+  public function testBcryptUnsupported()
+  {
+    try {
+      new RsPassword("bcrypt", false);
+      $this->fail("Exception expected");
+    } catch (Exception $e) {
+      $this->assertInstanceOf("\Exception", $e);
+    }
+  }
+
+  /**
    * Test bcrypt support
    *
    * @return void
