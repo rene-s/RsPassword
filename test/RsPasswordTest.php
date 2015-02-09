@@ -77,13 +77,33 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test validatePassword with SHA-1
+   *
+   * @return void
+   */
+  public function _testValidatePasswordSha1()
+  {
+    $this->testValidatePassword("sha1");
+  }
+
+  /**
+   * Test validatePassword with SHA-256
+   *
+   * @return void
+   */
+  public function testValidatePasswordSha256()
+  {
+    $this->testValidatePassword("sha256");
+  }
+
+  /**
    * Test validatePassword with SHA-512
    *
    * @return void
    */
   public function testValidatePasswordSha512()
   {
-    $this->testValidatePassword("sha256");
+    $this->testValidatePassword("sha512");
   }
 
   /**
@@ -114,18 +134,23 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
   public function testCompareHashes()
   {
     $password = "123werQWER§%&";
+    $saltSize = 32 * 2; // Salt size is fixed at 32 chars, in hex = 64.
 
     $rsp = new RsPassword();
     $hash = $rsp->hashPassword($password);
+    $this->assertSame(64 + $saltSize, strlen($hash));
 
     $rsp = new RsPassword("sha256");
     $hashSha256 = $rsp->hashPassword($password);
+    $this->assertSame(64 + $saltSize, strlen($hashSha256));
 
     $rsp = new RsPassword("sha512");
     $hashSha512 = $rsp->hashPassword($password);
+    $this->assertSame(128 + $saltSize, strlen($hashSha512));
 
     $rsp = new RsPassword("ripemd160");
     $hashRipeMd160 = $rsp->hashPassword($password);
+    $this->assertSame(40 + $saltSize, strlen($hashRipeMd160));
 
     $this->assertNotEquals($hashSha256, $hashSha512); // different salts, different algorithm
     $this->assertNotEquals($hashSha256, $hashRipeMd160); // different salts, different algorithm

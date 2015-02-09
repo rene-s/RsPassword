@@ -1,7 +1,7 @@
 <?php
 require "lib/RsPassword.class.php";
 
-$algorithm = "sha256";
+$algorithm = "sha512";
 $cost = 10;
 
 printf("Usage: %s ['algorithm'] [cost]\n", $argv[0]);
@@ -32,6 +32,8 @@ $result = $rsp->validatePassword($password, $hash, $cost);
 
 if ($result) {
   printf("Verified\n");
+  exit(0);
 } else {
   printf("Could not verify!\n");
+  exit(1);
 }

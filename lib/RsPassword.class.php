@@ -156,11 +156,11 @@ class RsPassword
       return password_verify($passwordToValidate, $storedSaltHash);
     }
 
-    $salt = substr($storedSaltHash, 0, 64); //get the salt from the front of the "salt-hash"
-    $storedHash = substr($storedSaltHash, 64, 64); //the actual hash
+    $storedSalt = substr($storedSaltHash, 0, 64); //get the salt from the front of the "salt-hash"
+    $storedHash = substr($storedSaltHash, 64); //the actual hash
 
     //hash the password being tested
-    $calculatedHash = $this->hashWithRounds($passwordToValidate, $salt, is_null($rounds) ? 10250 : $rounds);
+    $calculatedHash = $this->hashWithRounds($passwordToValidate, $storedSalt, is_null($rounds) ? 10250 : $rounds);
 
     //if the hashes are exactly the same, the password is valid
     return $calculatedHash === $storedHash;
