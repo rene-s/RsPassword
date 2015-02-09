@@ -7,6 +7,14 @@ RsPassword is a small PHP class for
 
 It is supposed to adhere to the Public-Key Cryptography Standards (PKCS).
 
+## Tests
+
+There are some basic PHPUnit tests.
+
+![Build result](https://api.travis-ci.org/rene-s/RsPassword.png "Build result")
+
+([Travis CI](https://travis-ci.org/rene-s/RsPassword))
+
 ## Supported hashing algorithms
 
 1. bcrypt (with rounds)
@@ -18,8 +26,8 @@ It is supposed to adhere to the Public-Key Cryptography Standards (PKCS).
 
 Me:
 
-1. https://reneschmidt.de/wiki
-1. [I am available for hire](mailto:wiki@reneschmidt.de)
+1. [https://reneschmidt.de/wiki/](https://reneschmidt.de/wiki/)
+1. [I am available for hire](mailto:rene+_gth@reneschmidt.de)
 
 # Licence
 
