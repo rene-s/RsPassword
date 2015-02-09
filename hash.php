@@ -1,36 +1,36 @@
 <?php
 require "lib/RsPassword.class.php";
 
-$algorithm = "sha512";
+$algorithm = "sha256";
 $cost = 10;
 
-if (!isset($argv[1])) {
-  printf("Usage: %s 'string_to_be_hashed' ['algorithm'] [cost]\n", $argv[0]);
-  exit(1);
+printf("Usage: %s ['algorithm'] [cost]\n", $argv[0]);
+
+if (isset($argv[1])) {
+  $algorithm = $argv[1];
 }
 
 if (isset($argv[2])) {
-  $algorithm = $argv[2];
+  $cost = (int)$argv[2]; // do not cast to int here, RsPassword would not process it correctly (don't know why though)
 }
 
-if (isset($argv[3])) {
-  $cost = $argv[3];
-}
-
-$password = $argv[1];
+// user needs to enter a password
+print("Enter a password (no input will be visible): ");
+$input = fopen("php://stdin", "r");
+$password = trim(fgets($input));
 
 $rsp = new RsPassword($algorithm);
 
 $hash = $rsp->hashPassword($password, $cost);
 
-printf("Hashed: %s,%d,%s\n", $algorithm, $cost, $hash);
+printf("\nHashed: %s,%d,%s\n", $rsp->getAlgorithm(), $cost, $hash);
 
 
 $rsp = new RsPassword($algorithm);
 
 $result = $rsp->validatePassword($password, $hash, $cost);
 
-if($result) {
+if ($result) {
   printf("Verified\n");
 } else {
   printf("Could not verify!\n");

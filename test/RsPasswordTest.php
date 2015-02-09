@@ -62,6 +62,10 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
   {
     $rsp = new RsPassword($algo);
 
+    if ($algo !== "invalid") {
+      $this->assertSame($algo, $rsp->getAlgorithm());
+    }
+
     $password = "123werQWER§%&";
     $hash = $rsp->hashPassword($password, 10250);
 

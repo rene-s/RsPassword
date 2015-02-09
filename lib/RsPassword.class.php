@@ -26,8 +26,8 @@ class RsPassword
   /**
    * Constructor
    *
-   * @param string|null $algorithm      Algorithm to use for hashing
-   * @param bool|null   $supportsBcrypt Supports bcrypt()
+   * @param string|null $algorithm Algorithm to use for hashing
+   * @param bool|null $supportsBcrypt Supports bcrypt()
    *
    * @return void
    * @throws \Exception
@@ -40,8 +40,6 @@ class RsPassword
       case "sha256":
       case "sha512":
       case "ripemd160":
-        $this->algorithm = $algorithm;
-        break;
       case "bcrypt":
         $this->algorithm = $algorithm;
         break;
@@ -51,20 +49,30 @@ class RsPassword
   }
 
   /**
+   * Return current algorithm
+   *
+   * @return string
+   */
+  public function getAlgorithm()
+  {
+    return $this->algorithm;
+  }
+
+  /**
    * Check if we are supposed to use bcrypt
    *
    * @return bool
    */
   public function usesBcrypt()
   {
-    return $this->algorithm === "bcrypt";
+    return $this->getAlgorithm() === "bcrypt";
   }
 
   /**
    * Takes a password and returns the salted hash
    *
    * @param string $password Password string
-   * @param int    $rounds   Amount of hashing rounds
+   * @param int $rounds Amount of hashing rounds
    *
    * @return string salt-hash of the password
    * @throws \Exception
@@ -89,9 +97,11 @@ class RsPassword
   }
 
   /**
+   * Do actual hashing
+   *
    * @param string $password Password string
-   * @param string $salt     Salt string
-   * @param int    $rounds   Amount of hashing rounds
+   * @param string $salt Salt string
+   * @param int $rounds Amount of hashing rounds
    *
    * @return string salt-hash of the password
    */
@@ -133,9 +143,9 @@ class RsPassword
   /**
    * Validates a password
    *
-   * @param string   $passwordToValidate Password string to be validated
-   * @param string   $storedSaltHash     Stored hash string
-   * @param int|null $rounds             Amount of rounds
+   * @param string $passwordToValidate Password string to be validated
+   * @param string $storedSaltHash Stored hash string
+   * @param int|null $rounds Amount of rounds
    *
    * @return bool true if the password is valid, false otherwise.
    * @throws \Exception
