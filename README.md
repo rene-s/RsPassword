@@ -35,7 +35,7 @@ LGPL v3 or commercial licence :) from github@reneschmidt.de.
 
 # Source/Download
 
-[Source can be found at BitBucket](https://bitbucket.org/r_schmidt/rspassword)
+[Source can be found at GitHub](https://github.com/rene-s/RsPassword)
 
 # Requirements
 
