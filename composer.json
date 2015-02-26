@@ -1,0 +1,17 @@
+{
+  "name": "reneschmidt/rspassword",
+  "description": "RsPassword is a small PHP class for generating salted password hashes with rounds and for verifying salted password hashes with rounds.",
+  "minimum-stability": "stable",
+  "license": "LGPL-3.0",
+  "authors": [
+    {
+      "name": "Rene Schmidt",
+      "email": "rene+_pkg@reneschmidt.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "RsPassword\\": "src/RsPassword/"
+    }
+  }
+}
