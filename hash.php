@@ -1,5 +1,5 @@
 <?php
-require "lib/RsPassword.class.php";
+require "src/RsPassword/RsPassword.class.php";
 
 $algorithm = "sha512";
 $cost = 10;
