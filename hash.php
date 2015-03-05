@@ -7,11 +7,11 @@ $cost = 10;
 printf("Usage: %s ['algorithm'] [cost]\n", $argv[0]);
 
 if (isset($argv[1])) {
-  $algorithm = $argv[1];
+    $algorithm = $argv[1];
 }
 
 if (isset($argv[2])) {
-  $cost = (int)$argv[2]; // do not cast to int here, RsPassword would not process it correctly (don't know why though)
+    $cost = (int)$argv[2]; // do not cast to int here, RsPassword would not process it correctly (don't know why though)
 }
 
 // user needs to enter a password
@@ -31,9 +31,9 @@ $rsp = new RsPassword($algorithm);
 $result = $rsp->validatePassword($password, $hash, $cost);
 
 if ($result) {
-  printf("Verified\n");
-  exit(0);
+    printf("Verified\n");
+    exit(0);
 } else {
-  printf("Could not verify!\n");
-  exit(1);
+    printf("Could not verify!\n");
+    exit(1);
 }
