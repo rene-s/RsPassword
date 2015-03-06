@@ -1,4 +1,5 @@
 <?php
+namespace RsPassword;
 
 /**
  * 1. RsPassword class.
@@ -28,11 +29,9 @@ class RsPassword
      *
      * @param string|null $algorithm Algorithm to use for hashing
      * @param bool|null $supportsBcrypt Supports bcrypt()
-     *
-     * @return void
      * @throws \Exception
      */
-    public function RsPassword($algorithm = null, $supportsBcrypt = null)
+    public function __construct($algorithm = null, $supportsBcrypt = null)
     {
         $this->supportsBcrypt = is_bool($supportsBcrypt) ? (bool)$supportsBcrypt : function_exists("password_hash");
 

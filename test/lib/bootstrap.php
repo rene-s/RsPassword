@@ -2,4 +2,4 @@
 /**
  * Unit test bootstrap
  */
-require_once realpath(__DIR__ . '/../../src/RsPassword/RsPassword.class.php');
+require_once 'vendor/autoload.php';

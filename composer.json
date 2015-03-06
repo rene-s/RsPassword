@@ -13,5 +13,10 @@
     "psr-4": {
       "RsPassword\\": "src/RsPassword/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RsPassword\\": "src/RsPassword/"
+    }
   }
 }

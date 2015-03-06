@@ -1,4 +1,5 @@
 <?php
+use RsPassword\RsPassword;
 
 /**
  * Test RsPassword
