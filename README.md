@@ -4,8 +4,7 @@ RsPassword is a small PHP class for
 
 1. generating salted password hashes with rounds and for
 1. verifying salted password hashes with rounds.
-
-It is supposed to adhere to the Public-Key Cryptography Standards (PKCS).
+1. It is supposed to adhere to the Public-Key Cryptography Standards (PKCS).
 
 ## Tests
 
