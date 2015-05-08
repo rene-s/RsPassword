@@ -1,25 +1,39 @@
 <?php
+/**
+ * Easy secure password generation
+ *
+ * PHP Version 5.5
+ *
+ * @category Password
+ * @package  RsPassword
+ * @author   Rene Schmidt <rene@reneschmidt.de>
+ * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
+ * @link     https://reneschmidt.de/
+ */
 namespace RsPassword;
 
 /**
  * 1. RsPassword class.
  * 2. Hashes password with salt and rounds, validates passwords.
- * 3. Concatenates salt and hash for easy storage and handling. (store salt-hash in CHAR(128))
+ * 3. Concats salt & hash for easy storage & handling. (store salt-hash in CHAR(128))
  * 4. That's it.
  *
- *
- * @package RsPassword
- * @author  Rene Schmidt <rene@reneschmidt.de>
- * @license LGPLv3
+ * @category Password
+ * @package  RsPassword
+ * @author   Rene Schmidt <rene@reneschmidt.de>
+ * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
+ * @link     https://reneschmidt.de/
  */
 class RsPassword
 {
     /**
+     * Either sha256|sha512|ripemd160|bcrypt
      * @var string
      */
     protected $algorithm = "sha256";
 
     /**
+     * Support for bcrypt or not
      * @var bool
      */
     protected $supportsBcrypt = true;
@@ -27,13 +41,16 @@ class RsPassword
     /**
      * Constructor
      *
-     * @param string|null $algorithm Algorithm to use for hashing
-     * @param bool|null $supportsBcrypt Supports bcrypt()
+     * @param string|null $algorithm      Algorithm to use for hashing
+     * @param bool|null   $supportsBcrypt Supports bcrypt()
+     *
      * @throws \Exception
      */
     public function __construct($algorithm = null, $supportsBcrypt = null)
     {
-        $this->supportsBcrypt = is_bool($supportsBcrypt) ? (bool)$supportsBcrypt : function_exists("password_hash");
+        $this->supportsBcrypt = is_bool($supportsBcrypt)
+            ? (bool)$supportsBcrypt
+            : function_exists("password_hash");
 
         switch ($algorithm) {
             case "sha256":
@@ -71,7 +88,7 @@ class RsPassword
      * Takes a password and returns the salted hash
      *
      * @param string $password Password string
-     * @param int $rounds Amount of hashing rounds
+     * @param int    $rounds   Amount of hashing rounds
      *
      * @return string salt-hash of the password
      * @throws \Exception
@@ -82,15 +99,29 @@ class RsPassword
             if (is_null($rounds)) {
                 $rounds = 10;
             } else if ($rounds < 4 || $rounds > 15) {
-                throw new \Exception("RsPassword supports bcrypt rounds only '4 <= \$rounds <= 15'. Please choose at least 4 or 15 at max.");
+                throw new \Exception(
+                    "RsPassword supports bcrypt rounds only "
+                    . "'4 <= \$rounds <= 15'. "
+                    . "Please choose at least 4 or 15 at max."
+                );
             }
 
-            // do not create custom salt as the PHP documentation recommends against it because password_hash() already takes care for that.
-            return password_hash($password, PASSWORD_BCRYPT, array('cost' => $rounds /*, 'salt' => $this->createSalt(22)*/));
+            // do not create custom salt as the PHP documentation
+            // recommends against it because password_hash()
+            // already takes care for that.
+            return password_hash(
+                $password,
+                PASSWORD_BCRYPT,
+                array('cost' => $rounds /*, 'salt' => $this->createSalt(22)*/)
+            );
         }
 
         $salt = $this->createSalt();
-        $hash = $this->hashWithRounds($password, $salt, is_null($rounds) ? 10250 : $rounds);
+        $hash = $this->hashWithRounds(
+            $password,
+            $salt,
+            is_null($rounds) ? 10250 : $rounds
+        );
 
         return $salt . $hash;
     }
@@ -99,12 +130,12 @@ class RsPassword
      * Do actual hashing
      *
      * @param string $password Password string
-     * @param string $salt Salt string
-     * @param int $rounds Amount of hashing rounds
+     * @param string $salt     Salt string
+     * @param int    $rounds   Amount of hashing rounds
      *
      * @return string salt-hash of the password
      */
-    private function hashWithRounds($password, $salt, $rounds)
+    protected function hashWithRounds($password, $salt, $rounds)
     {
         $hash = "0";
 
@@ -116,7 +147,7 @@ class RsPassword
     }
 
     /**
-     * get 256 random bits in hex
+     * Get 256 random bits in hex
      *
      * @param int $length Desired salt length
      *
@@ -142,24 +173,34 @@ class RsPassword
     /**
      * Validates a password
      *
-     * @param string $passwordToValidate Password string to be validated
-     * @param string $storedSaltHash Stored hash string
-     * @param int|null $rounds Amount of rounds
+     * @param string   $passwordToValidate Password string to be validated
+     * @param string   $storedSaltHash     Stored hash string
+     * @param int|null $rounds             Amount of rounds
      *
      * @return bool true if the password is valid, false otherwise.
      * @throws \Exception
      */
-    public function validatePassword($passwordToValidate, $storedSaltHash, $rounds = null)
-    {
+    public function validatePassword(
+        $passwordToValidate,
+        $storedSaltHash,
+        $rounds = null
+    ) {
         if ($this->usesBcrypt()) {
             return password_verify($passwordToValidate, $storedSaltHash);
         }
 
-        $storedSalt = substr($storedSaltHash, 0, 64); //get the salt from the front of the "salt-hash"
-        $storedHash = substr($storedSaltHash, 64); //the actual hash
+        //get the salt from the front of the "salt-hash"
+        $storedSalt = substr($storedSaltHash, 0, 64);
+
+        //the actual hash
+        $storedHash = substr($storedSaltHash, 64);
 
         //hash the password being tested
-        $calculatedHash = $this->hashWithRounds($passwordToValidate, $storedSalt, is_null($rounds) ? 10250 : $rounds);
+        $calculatedHash = $this->hashWithRounds(
+            $passwordToValidate,
+            $storedSalt,
+            is_null($rounds) ? 10250 : $rounds
+        );
 
         //if the hashes are exactly the same, the password is valid
         return $calculatedHash === $storedHash;

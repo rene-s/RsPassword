@@ -12,7 +12,7 @@
   "require-dev": {
     "phpunit/phpunit": "3.7.x",
     "phpunit/php-code-coverage": "1.2.x",
-    "squizlabs/php_codesniffer": "1.4.8"
+    "squizlabs/php_codesniffer": "2.x"
   },
   "autoload": {
     "psr-4": {
