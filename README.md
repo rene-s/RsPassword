@@ -25,7 +25,7 @@ There are some basic PHPUnit tests.
 
 Me:
 
-1. [https://reneschmidt.de/wiki/](https://reneschmidt.de/wiki/)
+1. [https://reneschmidt.de/](https://reneschmidt.de/)
 1. [I am available for hire](mailto:rene+_gth@reneschmidt.de)
 
 # Licence
