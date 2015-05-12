@@ -155,6 +155,8 @@ class RsPassword
      */
     public function createSalt($length = 32)
     {
+        // if you get a "missing function mcrypt_create_iv()" or something similar,
+        // make sure to a) have php5-mcrypt installed and b) *enabled*
         return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
     }
 
