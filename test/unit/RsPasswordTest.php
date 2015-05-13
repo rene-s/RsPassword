@@ -1,4 +1,6 @@
 <?php
+namespace RsPasswordTest;
+
 use RsPassword\RsPassword;
 
 /**
@@ -9,7 +11,7 @@ use RsPassword\RsPassword;
  * @author     Rene Schmidt <rene@reneschmidt.de>
  * @license    LGPLv3
  */
-class RsPasswordTest extends PHPUnit_Framework_TestCase
+class RsPasswordTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -75,16 +77,6 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($rsp->validatePassword("wrongPassword", $hash, 10250)); // wrong password
 
         $this->assertTrue($rsp->validatePassword($password, $hash, 10250));
-    }
-
-    /**
-     * Test validatePassword with SHA-1
-     *
-     * @return void
-     */
-    public function _testValidatePasswordSha1()
-    {
-        $this->testValidatePassword("sha1");
     }
 
     /**
@@ -167,11 +159,13 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
     public function testBcryptInvalidRounds()
     {
         if (version_compare(PHP_VERSION, '5.5') < 0) {
-            // current PHP version is too old. only check if RsPassword throws an exception when trying to use bcrypt with PHP < 5.5
+            // current PHP version is too old.
+            // only check if RsPassword throws an exception when trying
+            // to use bcrypt with PHP < 5.5
             try {
                 new RsPassword("bcrypt");
                 $this->fail("Exception expected. bcrypt is available only with PHP 5.5 and newer.");
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->markTestSkipped("bcrypt is available only with PHP 5.5 and newer.");
             }
         } else {
@@ -195,7 +189,7 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
         try {
             new RsPassword("bcrypt", false);
             $this->fail("Exception expected");
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->assertInstanceOf("\Exception", $e);
         }
     }
@@ -209,11 +203,13 @@ class RsPasswordTest extends PHPUnit_Framework_TestCase
     public function testBcrypt()
     {
         if (version_compare(PHP_VERSION, '5.5') < 0) {
-            // current PHP version is too old. only check if RsPassword throws an exception when trying to use bcrypt with PHP < 5.5
+            // current PHP version is too old.
+            // only check if RsPassword throws an exception when
+            // trying to use bcrypt with PHP < 5.5
             try {
                 new RsPassword("bcrypt");
                 $this->fail("Exception expected. bcrypt is available only with PHP 5.5 and newer.");
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->markTestSkipped("bcrypt is available only with PHP 5.5 and newer.");
             }
         } else {

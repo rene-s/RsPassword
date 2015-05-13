@@ -98,7 +98,7 @@ class RsPassword
         if ($this->usesBcrypt()) {
             if (is_null($rounds)) {
                 $rounds = 10;
-            } else if ($rounds < 4 || $rounds > 15) {
+            } elseif ($rounds < 4 || $rounds > 15) {
                 throw new \Exception(
                     "RsPassword supports bcrypt rounds only "
                     . "'4 <= \$rounds <= 15'. "
