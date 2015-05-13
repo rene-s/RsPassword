@@ -10,9 +10,9 @@
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "3.7.x",
-    "phpunit/php-code-coverage": "1.2.x",
-    "squizlabs/php_codesniffer": "2.x"
+    "phpunit/phpunit": "4.5.*",
+    "phpunit/php-code-coverage": "2.*",
+    "squizlabs/php_codesniffer": "2.*"
   },
   "autoload": {
     "psr-4": {
