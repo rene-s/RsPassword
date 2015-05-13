@@ -13,9 +13,12 @@ php:
   # aliased to a recent 5.6.x version
   - 5.6
 
+install:
+  - sh ./bin/prepare_tests.sh
+
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-script: phpunit --configuration phpunit.xml --coverage-text test
+script: ./bin/run_tests.sh
 
 notifications:
   email:
