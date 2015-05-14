@@ -1,4 +1,14 @@
 <?php
+/**
+ * RsPassword tests
+ *
+ * PHP Version 5.5
+ *
+ * @package  RsPassword
+ * @author   Rene Schmidt <rene@reneschmidt.de>
+ * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
+ * @link     https://reneschmidt.de/
+ */
 namespace RsPasswordTest;
 
 use RsPassword\RsPassword;
@@ -6,10 +16,12 @@ use RsPassword\RsPassword;
 /**
  * Test RsPassword
  *
+ * @category Password
  * @package    RsPassword
  * @subpackage TestUnit
  * @author     Rene Schmidt <rene@reneschmidt.de>
- * @license    LGPLv3
+ * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
+ * @link     https://reneschmidt.de/
  */
 class RsPasswordTest extends \PHPUnit_Framework_TestCase
 {
