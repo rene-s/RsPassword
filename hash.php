@@ -1,5 +1,7 @@
 <?php
-require "src/RsPassword/RsPassword.class.php";
+use RsPassword\RsPassword;
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 $algorithm = "sha512";
 $cost = 10;
