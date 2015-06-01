@@ -52,6 +52,10 @@ class RsPassword
             ? (bool)$supportsBcrypt
             : function_exists("password_hash");
 
+        if (!is_callable('mcrypt_create_iv')) {
+            throw new \Exception('mcrypt extension is not installed or not enabled.');
+        }
+
         switch ($algorithm) {
             case "sha256":
             case "sha512":
