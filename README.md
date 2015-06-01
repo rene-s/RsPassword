@@ -39,7 +39,7 @@ LGPL v3 or commercial licence :) from github@reneschmidt.de.
 # Requirements
 
 1. PHP 5.4, PHP 5.5 (maybe also newer versions)
-1. php5-mcrypt
+1. php5-mcrypt (make sure it's installed AND enabled)
 
 Please note that PHP 5.5+ provides password_hash() which basically does what RsPassword does.
 So you do not actually *need* RsPassword for secure passwords when using PHP 5.5+.
