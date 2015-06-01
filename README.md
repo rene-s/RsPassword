@@ -47,6 +47,14 @@ I consider RsPassword easier do use though.
 
 # How to use
 
+## Example script
+
+Run the example script and follow instructions:
+
+```php
+php ./hash.php [algorithm] [cost]
+```
+
 ## Create password hash
 
 ```php
