@@ -1,12 +1,13 @@
 <phpunit bootstrap="./test/lib/bootstrap.php">
     <testsuites>
-        <testsuite name="SimpleOrm Test Suite">
+        <testsuite name="RsPassword Test Suite">
             <directory>./test/unit</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <blacklist>
-        </blacklist>
+        <whitelist>
+            <directory>./src</directory>
+        </whitelist>
     </filter>
     <logging>
         <log type="tap" target="/tmp/phpunit-result/rspassword-current-tap.txt"/>
