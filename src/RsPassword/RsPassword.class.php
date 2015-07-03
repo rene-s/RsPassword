@@ -139,7 +139,7 @@ class RsPassword
      *
      * @return string salt-hash of the password
      */
-    protected function hashWithRounds($password, $salt, $rounds)
+    public function hashWithRounds($password, $salt, $rounds)
     {
         $hash = "0";
 
