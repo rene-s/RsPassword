@@ -1,4 +1,8 @@
 <?php
+namespace RsPasswordTest;
+
+use RsPassword\RsPassword;
+
 /**
  * RsPassword tests
  *
@@ -10,10 +14,6 @@
  * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
  * @link     https://reneschmidt.de/
  */
-namespace RsPasswordTest;
-
-use RsPassword\RsPassword;
-
 class RsPasswordTest extends \PHPUnit_Framework_TestCase
 {
 

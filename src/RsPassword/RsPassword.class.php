@@ -1,22 +1,12 @@
 <?php
-/**
- * Easy secure password generation
- *
- * PHP Version 5.5
- *
- * @category Password
- * @package  RsPassword
- * @author   Rene Schmidt <rene@reneschmidt.de>
- * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
- * @link     https://reneschmidt.de/
- */
 namespace RsPassword;
 
 /**
- * 1. RsPassword class.
- * 2. Hashes password with salt and rounds, validates passwords.
- * 3. Concats salt & hash for easy storage & handling. (store salt-hash in CHAR(128))
- * 4. That's it.
+ * Easy secure password generation
+ *
+ * 1. Hashes password with salt and rounds, validates passwords.
+ * 2. Concats salt & hash for easy storage & handling. (store salt-hash in CHAR(128))
+ * 3. That's it.
  *
  * @category Password
  * @package  RsPassword
