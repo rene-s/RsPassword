@@ -6,13 +6,14 @@ RsPassword is a small PHP class for
 1. verifying salted password hashes with rounds.
 1. It is supposed to adhere to the Public-Key Cryptography Standards (PKCS).
 
-## Tests
+## German Web Application Developer Available for Hire!
 
-There are some basic PHPUnit tests.
+No marketing skills whatsoever, but low rates, nearly 20 years of experience, and german work attitude.
 
-![Build result](https://api.travis-ci.org/rene-s/RsPassword.png "Build result")
+Get in touch now: https://www.reneschmidt.de/DevOps/#contact
 
-([Travis CI](https://travis-ci.org/rene-s/RsPassword))
+[![Build Status](https://travis-ci.org/rene-s/RsPassword.svg)](https://travis-ci.org/rene-s/RsPassword)
+[![License](https://img.shields.io/badge/License-LGPL-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
 ## Supported hashing algorithms
 
@@ -30,7 +31,7 @@ Me:
 
 # Licence
 
-LGPL v3 or commercial licence :) from github@reneschmidt.de.
+LGPL v3 or commercial licence :) from rene+_gth@reneschmidt.de.
 
 # Source/Download
 
@@ -51,13 +52,13 @@ I consider RsPassword easier do use though.
 
 Run the example script and follow instructions:
 
-```php
+```
 php ./hash.php [algorithm] [cost]
 ```
 
 ## Create password hash
 
-```php
+```
     // Create salted SHA256 hash of $password with 10250 rounds
     $rsPassword = new RsPassword("sha256");
 
@@ -69,7 +70,7 @@ php ./hash.php [algorithm] [cost]
 
 ## Verify password
 
-```php
+```
     // To do for you: User logs in. Get the password from the form and get salted hash, number of rounds and hashing
     // algorithm from database ($passwordFromLoginForm, $saltedHashFromDb, $roundsFromDb, $hashingAlgoFromDb).
 

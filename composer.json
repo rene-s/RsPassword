@@ -16,12 +16,13 @@
   },
   "autoload": {
     "psr-4": {
-      "RsPassword\\": "src/RsPassword/"
+      "RsPassword\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "RsPassword\\": "src/RsPassword/"
+      "RsPassword\\": "src/",
+      "RsPassword\\Tests\\": "test/unit"
     }
   }
 }

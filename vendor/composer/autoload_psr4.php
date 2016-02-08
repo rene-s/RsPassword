@@ -6,5 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'RsPassword\\' => array($baseDir . '/src/RsPassword', $baseDir . '/src/RsPassword'),
+    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'RsPassword\\Tests\\' => array($baseDir . '/test/unit'),
+    'RsPassword\\' => array($baseDir . '/src', $baseDir . '/src'),
+    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
 );
