@@ -18,12 +18,14 @@ class RsPassword
 {
     /**
      * Either sha256|sha512|ripemd160|bcrypt
+     *
      * @var string
      */
     protected $algorithm = "sha256";
 
     /**
      * Support for bcrypt or not
+     *
      * @var bool
      */
     protected $supportsBcrypt = true;
@@ -42,8 +44,10 @@ class RsPassword
             ? (bool)$supportsBcrypt
             : function_exists("password_hash");
 
-        if (!is_callable('mcrypt_create_iv')) {
-            throw new \Exception('mcrypt extension is not installed or not enabled.');
+        if (!is_callable('random_bytes') && !is_callable('mcrypt_create_iv')) {
+            throw new \Exception(
+                'Required function random_bytes() not found or mcrypt extension is not installed or not enabled.'
+            );
         }
 
         switch ($algorithm) {
@@ -149,6 +153,10 @@ class RsPassword
      */
     public function createSalt($length = 32)
     {
+        if (is_callable('random_bytes')) {
+            return bin2hex(random_bytes($length));
+        }
+
         // if you get a "missing function mcrypt_create_iv()" or something similar,
         // make sure to a) have php5-mcrypt installed and b) *enabled*
         return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));

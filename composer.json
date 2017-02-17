@@ -10,8 +10,10 @@
     }
   ],
   "require-dev": {
+    "php": ">=5.3",
     "phpunit/phpunit": "4.5.*",
     "phpunit/php-code-coverage": "2.*",
+    "sebastian/phpcpd": "~2.0",
     "squizlabs/php_codesniffer": "2.*"
   },
   "autoload": {
