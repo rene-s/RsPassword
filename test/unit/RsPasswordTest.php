@@ -10,9 +10,9 @@ use RsPassword\RsPassword;
  *
  * @category   Password
  * @package  RsPassword
- * @author   Rene Schmidt DevOps UG (haftungsbeschränkt) & Co. KG <rene@reneschmidt.de>
+ * @author   Rene Schmidt DevOps UG (haftungsbeschränkt) & Co. KG <rene@sdo.sh>
  * @license  https://www.gnu.org/licenses/lgpl.html LGPLv3
- * @link     https://reneschmidt.de/
+ * @link     https://sdo.sh/
  */
 class RsPasswordTest extends \PHPUnit_Framework_TestCase
 {

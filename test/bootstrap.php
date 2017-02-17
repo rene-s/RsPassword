@@ -6,8 +6,8 @@
  *
  * @category   Password
  * @package    RsPassword
- * @author     Rene Schmidt <rene@reneschmidt.de>
+ * @author     Rene Schmidt <rene@sdo.sh>
  * @license    https://www.gnu.org/licenses/lgpl.html LGPLv3
- * @link       https://reneschmidt.de/
+ * @link       https://sdo.sh/
  */
 require_once 'vendor/autoload.php';

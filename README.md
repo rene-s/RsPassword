@@ -10,7 +10,7 @@ RsPassword is a small PHP class for
 
 No marketing skills whatsoever, but low rates, nearly 20 years of experience, and german work attitude.
 
-Get in touch now: https://www.reneschmidt.de/DevOps/#contact
+Get in touch now: https://sdo.sh/DevOps/#contact
 
 [![Build Status](https://travis-ci.org/rene-s/RsPassword.svg)](https://travis-ci.org/rene-s/RsPassword)
 [![License](https://img.shields.io/badge/License-LGPL-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
@@ -26,12 +26,12 @@ Get in touch now: https://www.reneschmidt.de/DevOps/#contact
 
 Me:
 
-1. [https://reneschmidt.de/](https://reneschmidt.de/)
-1. [I am available for hire](mailto:rene+_gth@reneschmidt.de)
+1. [https://sdo.sh/](https://sdo.sh/)
+1. [I am available for hire](mailto:rene+_gth@sdo.sh)
 
 # Licence
 
-LGPL v3 or commercial licence :) from rene+_gth@reneschmidt.de.
+LGPL v3 or commercial licence :) from rene+_gth@sdo.sh.
 
 # Source/Download
 
@@ -39,8 +39,8 @@ LGPL v3 or commercial licence :) from rene+_gth@reneschmidt.de.
 
 # Requirements
 
-1. PHP 5.4, PHP 5.5 (maybe also newer versions)
-1. php5-mcrypt (make sure it's installed AND enabled)
+1. PHP 5.3 ... PHP 7.1 (maybe also newer versions)
+1. php5-mcrypt for PHP 5.x (make sure it's installed AND enabled)
 
 Please note that PHP 5.5+ provides password_hash() which basically does what RsPassword does.
 So you do not actually *need* RsPassword for secure passwords when using PHP 5.5+.
