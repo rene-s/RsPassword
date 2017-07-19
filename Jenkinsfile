@@ -51,11 +51,4 @@ pipeline {
       }
     }
   }
-
-  post {
-    success {
-    }
-    failure {
-    }
-  }
 }
