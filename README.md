@@ -86,3 +86,4 @@ php ./hash.php [algorithm] [cost]
     }
 ```
 
+That's it.
